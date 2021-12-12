@@ -1,4 +1,4 @@
-package org.example.Entities;
+ackage org.example.Entities;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.Time;
