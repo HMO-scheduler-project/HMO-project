@@ -1,25 +1,32 @@
 package org.example.ocsf.server;
 
 public class userController {
-        public static void getUser (Message msg) {
-            ArrayList<User> users = Main.getAllOfType(User.class);
+    private static List<User> getAllUsersFromDB() {
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<User> query = builder.createQuery(User.class);
+        query.from(User.class);
+        return session.createQuery(query).getResultList();
+    }
+
+    public static void getUser (Message msg) {
+            List<User> users = getAllUsersFromDB();
             int flag = 0;
-            for(User arr : users) {
-                if(arr.getUsername().equals(msg.getUsername()) && arr.getPassword().equals( msg.getPassword()) && arr.isLoggedIn()==false) {
-                    if(arr instanceof Manager) {
+            for(User user : users) {
+                if(user.getUsername().equals(msg.getUsername()) && user.getPassword().equals( msg.getPassword()) && user.isLoggedIn()==false) {
+                    if(user instanceof Manager) {
                         msg.setUserType("Manager");
                         System.out.println(msg.getUserType());
-                        arr.setLoggedIn(true);
-                        msg.setUser(arr);
+                        user.setLoggedIn(true);
+                        msg.setUser(user);
                         flag = 1;
-                    } else if(arr instanceof Employee) {
+                    } else if(user instanceof Employee) {
                         msg.setUserType("Employee");
                         System.out.println(msg.getUserType());
-                        arr.setLoggedIn(true);
-                        msg.setUser(arr);
+                        user.setLoggedIn(true);
+                        msg.setUser(user);
                         flag = 1;
                     } else msg.setUserType("null");
-                } else if(arr.getUsername().equals(msg.getUsername()) && arr.getPassword().equals( msg.getPassword()) &&arr.isLoggedIn()==true) {
+                } else if(user.getUsername().equals(msg.getUsername()) && user.getPassword().equals( msg.getPassword()) &&user.isLoggedIn()==true) {
                     msg.setType("you are already logged in");
                     flag = 1;
                 }
@@ -31,18 +38,18 @@ public class userController {
         }
 
         public static void logOut (Message msg) {
-            ArrayList<User> users = Main.getAllOfType(User.class);
+            List<User> users = getAllUsersFromDB();
             System.out.println("about to log out");
-            for(User arr : users) {
-                if(arr.getUsername().equals(msg.getUsername()) && arr.getPassword().equals( msg.getPassword())) {
-                    if(arr instanceof Manager) {
-                        arr.setLoggedIn(false);
+            for(User user : users) {
+                if(user.getUsername().equals(msg.getUsername()) && user.getPassword().equals( msg.getPassword())) {
+                    if(user instanceof Manager) {
+                        user.setLoggedIn(false);
 
-                    } else if(arr instanceof Employee) {
-                        arr.setLoggedIn(false);
+                    } else if(user instanceof Employee) {
+                        user.setLoggedIn(false);
 
                     }
-                } else if(arr.getUsername().equals(msg.getUsername()) && arr.getPassword().equals( msg.getPassword()) &&arr.isLoggedIn()==true) {
+                } else if(user.getUsername().equals(msg.getUsername()) && user.getPassword().equals( msg.getPassword()) &&user.isLoggedIn()==true) {
                     msg.setTypeOfWorker("you are already logged out");
                 }
 

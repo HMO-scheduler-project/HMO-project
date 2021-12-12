@@ -12,12 +12,14 @@ public abstract class User {
     protected int card_num;
     protected String first_name;
     protected String last_name;
+    boolean logged_in;
 
     public User() { }
     public User(String username, String password,int card) throws NoSuchAlgorithmException {
         this.username = username;
         this.password = hashPassword(password);
         this.card_num = card;
+        this.logged_in = false;
         Counter++;
     }
 
@@ -85,6 +87,14 @@ public abstract class User {
 
     public boolean checkCard(int num){
         return num==card_num;
+    }
+
+    public boolean isLoggedIn() {
+        return logged_in;
+    }
+
+    public void setLoggedIn(boolean log_in) {
+        this.logged_in = log_in;
     }
 
     @Override
