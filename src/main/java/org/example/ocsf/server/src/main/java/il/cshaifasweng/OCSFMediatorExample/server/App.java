@@ -57,7 +57,7 @@ public class App extends SimpleServer {
                     e.printStackTrace();
                 }
             }
-            if (currentMsg.getAction().equals("log out")) {
+            if (currentMsg.getAction().equals("logout")) {
                 try {
                     UserController.logOut(currentMsg);
                     serverMsg = new Message();

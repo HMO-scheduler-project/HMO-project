@@ -75,6 +75,24 @@ public class App extends Application {
         }
     }
 
+    public static void logout(Boolean logoutClicked) {
+        if(userName == null || password == null) {
+            Platform.exit();
+            System.exit(0);
+        }
+        isLogoutClicked = logoutClicked;
+        Message msg = new Message();
+        msg.setAction("logout");
+        msg.setUsername(username);
+        msg.setPassword(password);
+        try {
+            AppClient.getClient().sendToServer(msg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public static String getPassword() {
         return password;
     }
