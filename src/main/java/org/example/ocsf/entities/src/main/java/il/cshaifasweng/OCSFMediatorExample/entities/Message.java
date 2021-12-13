@@ -20,7 +20,6 @@ public class Message implements Serializable {
     private Time openning_hour;
     private Time closing_hour;
 
-
     public Message() {
         super();
     }

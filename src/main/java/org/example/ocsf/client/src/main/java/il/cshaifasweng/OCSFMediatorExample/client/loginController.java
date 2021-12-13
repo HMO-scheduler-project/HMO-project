@@ -84,7 +84,7 @@ public class loginController {
             msg.setUsername(username);
             msg.setPassword(password);
             msg.setAction("login");
-            client.getClient().sendToServer(msg);;
+            client.getClient().sendToServer(msg);
         } catch (IOException e) {
             e.printStackTrace();
         }

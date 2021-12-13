@@ -9,7 +9,7 @@ import java.util.List;
 
 public class clinicController {
 
-    private static List<Clinic> getAllClinicsFromDB() {
+    public static List<Clinic> getAllClinicsFromDB() {
         CriteriaBuilder builder = App.session.getCriteriaBuilder();
         CriteriaQuery<Clinic> query = builder.createQuery(Clinic.class);
         query.from(Clinic.class);

@@ -84,7 +84,6 @@ public class openningHoursScreenController {
     @FXML
     void initialize() {
         visible = App.getType().equals("Manager");
-
         if(visible){
             ChangeHoursBtn.setVisible(true);
         }
