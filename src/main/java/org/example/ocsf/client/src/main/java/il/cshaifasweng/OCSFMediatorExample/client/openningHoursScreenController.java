@@ -58,7 +58,7 @@ public class openningHoursScreenController {
         @FXML
         void pressNewAppBtn(ActionEvent event) {}
     @FXML
-    void pressOppenningHoursBtn(ActionEvent event) {
+    void pressOpenningHoursBtn(ActionEvent event) {
         OpenningHoursBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent event) {
 

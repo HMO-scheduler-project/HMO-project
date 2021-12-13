@@ -2,7 +2,7 @@
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com
 
-package il.cshaifasweng.OCSFMediatorExample.server.ocsf;
+package org.example.ocsf.server.src.main.java.il.cshaifasweng.OCSFMediatorExample.server.ocsf;
 
 import java.util.*;
 import java.io.*;
@@ -299,7 +299,7 @@ public class ObservableServer extends Observable
    * @param message The message received from the client.
    * @param client The connection to the client.
    * @see com.lloseng.ocsf.server.ObservableOriginatorServer
-   */
+   * */
   protected synchronized void handleMessageFromClient
     (Object message, ConnectionToClient client)
   {

@@ -10,7 +10,7 @@ public class PrimaryController {
     @FXML
     void sendWarning(ActionEvent event) {
     	try {
-			il.cshaifasweng.OCSFMediatorExample.client.SimpleClient.getClient().sendToServer("#warning");
+			SimpleClient.getClient().sendToServer("#warning");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -1,11 +1,11 @@
-package il.cshaifasweng.OCSFMediatorExample.server;
+package org.example.ocsf.server.src.main.java.il.cshaifasweng.OCSFMediatorExample.server;
 
-import il.cshaifasweng.OCSFMediatorExample.server.ocsf.AbstractServer;
-import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
+import org.example.ocsf.entities.src.main.java.il.cshaifasweng.OCSFMediatorExample.entities.Warning;
+import org.example.ocsf.server.src.main.java.il.cshaifasweng.OCSFMediatorExample.server.ocsf.AbstractServer;
+import org.example.ocsf.server.src.main.java.il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
 
 import java.io.IOException;
 
-import il.cshaifasweng.OCSFMediatorExample.entities.Warning;
 
 public class SimpleServer extends AbstractServer {
 
