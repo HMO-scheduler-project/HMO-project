@@ -7,8 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="HMO_Project" />
+        <module name="HMO-project" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="HMO-project" target="13" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

@@ -47,6 +47,10 @@ public class App extends Application {
         return fxmlLoader.load();
     }
 
+    static void setRoot(String fxml) throws IOException {
+        scene.setRoot(loadFXML(fxml));
+    }
+
     @Override
     public void stop(){
         if(currentController!= null) {
@@ -76,7 +80,7 @@ public class App extends Application {
     }
 
     public static void logout(Boolean logoutClicked) {
-        if(userName == null || password == null) {
+        if(username == null || password == null) {
             Platform.exit();
             System.exit(0);
         }
@@ -86,7 +90,7 @@ public class App extends Application {
         msg.setUsername(username);
         msg.setPassword(password);
         try {
-            AppClient.getClient().sendToServer(msg);
+            SimpleClient.getClient().sendToServer(msg);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,10 +1,10 @@
 package org.example.ocsf.server.src.main.java.il.cshaifasweng.OCSFMediatorExample.server;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 
-import il.cshaifasweng.OCSFMediatorExample.server.SimpleServer;
-import il.cshaifasweng.OCSFMediatorExample.server.ocsf.AbstractServer;
+import org.example.Entities.Clinic;
 import org.example.Entities.Employee;
 import org.example.Entities.Manager;
 import org.example.Entities.User;
@@ -15,11 +15,12 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
+import org.example.ocsf.server.src.main.java.il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
 
 public class App extends SimpleServer {
 
     private static SessionFactory sessionFactory = getSessionFactory();
-    private static Session session;
+    public static Session session;
     private Message serverMsg;
     private static SimpleServer server;
 
@@ -48,22 +49,22 @@ public class App extends SimpleServer {
                 try {
                     if (currentMsg.getUsername().equals(null) || ((Message) msg).getPassword().equals(null)) {
                     } else {
-                        UserController.getUser((Message) msg);
+                        userController.getUser((Message) msg);
                         serverMsg = (Message) msg;
                         serverMsg.setAction("login done");
                         client.sendToClient(serverMsg);
                     }
-                } catch (IOException e) {
+                } catch (IOException | NoSuchAlgorithmException e) {
                     e.printStackTrace();
                 }
             }
             if (currentMsg.getAction().equals("logout")) {
                 try {
-                    UserController.logOut(currentMsg);
+                    userController.logOut(currentMsg);
                     serverMsg = new Message();
                     serverMsg.setAction("logged out");
                     client.sendToClient(serverMsg);
-                } catch (IOException e) {
+                } catch (IOException | NoSuchAlgorithmException e) {
                     e.printStackTrace();
                 }
             }
@@ -81,13 +82,16 @@ public class App extends SimpleServer {
             if (currentMsg.getAction().equals("change hours")) {
                 try {
                     serverMsg = currentMsg;
-                    updateRowInDB(serverMsg.getHours());
+                    updateRowInDB(serverMsg.getOpenningHour());
+                    updateRowInDB(serverMsg.getClosingHour());
                     serverMsg.setAction("saved new hours");
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

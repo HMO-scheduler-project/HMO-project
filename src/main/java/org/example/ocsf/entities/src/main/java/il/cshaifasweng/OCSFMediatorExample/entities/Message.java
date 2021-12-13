@@ -1,6 +1,8 @@
 package org.example.ocsf.entities.src.main.java.il.cshaifasweng.OCSFMediatorExample.entities;
+import org.example.Entities.Clinic;
 import org.example.Entities.User;
 import java.io.Serializable;
+import java.sql.Time;
 
 public class Message implements Serializable {
     /* ---------- Message Necessary Info ---------- */

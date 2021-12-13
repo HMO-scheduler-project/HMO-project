@@ -1,4 +1,4 @@
-package org.example.ocsf.client;
+package org.example.ocsf.client.src.main.java.il.cshaifasweng.OCSFMediatorExample.client;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

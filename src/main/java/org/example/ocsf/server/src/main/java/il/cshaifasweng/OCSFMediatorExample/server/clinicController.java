@@ -1,17 +1,22 @@
-package org.example.ocsf.server;
+package org.example.ocsf.server.src.main.java.il.cshaifasweng.OCSFMediatorExample.server;
 
-import
+import org.example.Entities.Clinic;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import java.sql.Time;
+import java.util.List;
 
 public class clinicController {
 
     private static List<Clinic> getAllClinicsFromDB() {
-        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaBuilder builder = App.session.getCriteriaBuilder();
         CriteriaQuery<Clinic> query = builder.createQuery(Clinic.class);
         query.from(Clinic.class);
-        return session.createQuery(query).getResultList();
+        return App.session.createQuery(query).getResultList();
     }
 
-    public static void getClinicByName (String name) {
+    public static Clinic getClinicByName (String name) {
         List<Clinic> clinics = getAllClinicsFromDB();
         for (Clinic clinic : clinics) {
             if (clinic.getName().equals(name)) {
@@ -21,11 +26,11 @@ public class clinicController {
         return null;
     }
 
-    public Time getOpenningHourByClinic(Clinic clinic){
+    public static Time getOpenningHourByClinic(Clinic clinic){
         return clinic.getOpenningHour();
     }
 
-    public Time getClosingHourByClinic(Clinic clinic){
+    public static Time getClosingHourByClinic(Clinic clinic){
         return clinic.getClosingHour();
     }
 }
