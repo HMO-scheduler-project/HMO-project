@@ -26,20 +26,21 @@ public class App extends Application {
     private static String password;
     private static String type;
     private static Object currentController;
+    private static Boolean isLogoutClicked = false;
 
     @Override
-    public void start(Stage stage) throws IOException {
-    	EventBus.getDefault().register(this);
-    	client = SimpleClient.getClient();
-    	client.openConnection();
-        scene = new Scene(loadFXML("primary"), 640, 480);
-        stage.setScene(scene);
-        stage.show();
+    public void start (Stage stage){
+        try{
+            Parent root= FXMLLoader.load(getClass().getResource("login.FXML"));
+            Scene login = new Scene(root);
+            login.getStylesheets().add(getClass().getResource("/login_screen.css").toExternalForm());
+            stage.setScene(login);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
-    }
 
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
@@ -47,11 +48,14 @@ public class App extends Application {
     }
 
     @Override
-	public void stop() throws Exception {
-    	EventBus.getDefault().unregister(this);
-		super.stop();
-	}
-    
+    public void stop(){
+        if(currentController!= null) {
+            System.out.println("Stage is closing");
+        }
+        Platform.exit();
+        System.exit(0);
+    }
+
     @Subscribe
     public void onWarningEvent(WarningEvent event) {
     	Platform.runLater(() -> {

@@ -1,5 +1,6 @@
 package org.example.ocsf.server;
 
+
 public class userController {
     private static List<User> getAllUsersFromDB() {
         CriteriaBuilder builder = session.getCriteriaBuilder();

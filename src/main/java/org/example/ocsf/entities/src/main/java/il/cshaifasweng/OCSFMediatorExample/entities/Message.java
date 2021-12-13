@@ -13,6 +13,10 @@ public class Message implements Serializable {
     private String username;
     private String password;
     private String userType;
+    /*----------Handling clinics----*/
+    private Clinic clinic;
+    private Time openning_hour;
+    private Time closing_hour;
 
 
     public Message() {
@@ -81,5 +85,29 @@ public class Message implements Serializable {
 
     public void setUserType(String userType) {
         this.userType = userType;
+    }
+
+    public Clinic getClinic() {
+        return clinic;
+    }
+
+    public void setClinic(Clinic clinic) {
+        this.clinic = clinic;
+    }
+
+    public void setOpenningHour (Time openning_hour){
+        this.openning_hour = openning_hour;
+    }
+
+    public Time getOpenningHour(){
+        return openning_hour;
+    }
+
+    public void setClosingHour (Time closing_hour){
+        this.closing_hour = closing_hour;
+    }
+
+    public Time getClosingHour(){
+        return closing_hour;
     }
 }
