@@ -123,13 +123,6 @@ public class openningHoursScreenController {
         }
         OpenningHourColumn.setText(String.valueOf(msg.getOpenningHour()));
         ClosingHourColumn.setText(String.valueOf(msg.getClosingHour()));
-
-
-
     }
-
-
-
-
 }
 
