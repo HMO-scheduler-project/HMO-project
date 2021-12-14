@@ -3,6 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/HMO-project.iml" filepath="$PROJECT_DIR$/.idea/HMO-project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/main/java/org/example/ocsf/OCSFMediatorExample.iml" filepath="$PROJECT_DIR$/src/main/java/org/example/ocsf/OCSFMediatorExample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/main/java/org/example/ocsf/client/client.iml" filepath="$PROJECT_DIR$/src/main/java/org/example/ocsf/client/client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/main/java/org/example/ocsf/entities/entities.iml" filepath="$PROJECT_DIR$/src/main/java/org/example/ocsf/entities/entities.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/main/java/org/example/ocsf/server/server.iml" filepath="$PROJECT_DIR$/src/main/java/org/example/ocsf/server/server.iml" />
     </modules>
   </component>
 </project>

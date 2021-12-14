@@ -6,12 +6,18 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="server" />
+        <module name="client" />
         <module name="HMO_Project" />
-        <module name="HMO-project" />
+        <module name="entities" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="client" target="15" />
+      <module name="entities" target="15" />
       <module name="HMO-project" target="13" />
+      <module name="OCSFMediatorExample" target="15" />
+      <module name="server" target="15" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
