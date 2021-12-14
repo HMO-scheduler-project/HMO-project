@@ -10,6 +10,7 @@ import org.example.Entities.Manager;
 import org.example.Entities.User;
 import org.example.ocsf.entities.src.main.java.il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import org.hibernate.HibernateException;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -82,8 +83,12 @@ public class App extends SimpleServer {
             if (currentMsg.getAction().equals("change hours")) {
                 try {
                     serverMsg = currentMsg;
-                    updateRowInDB(serverMsg.getOpenningHour());
-                    updateRowInDB(serverMsg.getClosingHour());
+                    if(serverMsg.getOpenningHour()!=null) {
+                        updateCellInDB(serverMsg.getClinicName(), "ClinicName", "open", serverMsg.getOpenningHour());
+                    }
+                    if(serverMsg.getClosingHour()!=null) {
+                        updateCellInDB(serverMsg.getClinicName(), "ClinicName", "close", serverMsg.getClosingHour());
+                    }
                     serverMsg.setAction("saved new hours");
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
@@ -116,11 +121,13 @@ public class App extends SimpleServer {
         }
     }
 
-    public static <T> void updateRowInDB(T objectType) {
+    public static<T> void updateCellInDB(String EntityName,String EntityType,String col,T objectType) {
         try {
             session = sessionFactory.openSession();
             session.beginTransaction();
-            session.update(objectType);
+            String request = "UPDATE clinics SET col = objectType WHERE " +EntityType + " = "+EntityName;
+            SQLQuery sqlQuery = session.createSQLQuery(request);
+            sqlQuery.executeUpdate();
             session.flush();
             session.getTransaction().commit();
             session.clear();

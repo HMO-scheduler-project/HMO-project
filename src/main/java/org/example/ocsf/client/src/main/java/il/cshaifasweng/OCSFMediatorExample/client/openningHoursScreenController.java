@@ -14,7 +14,8 @@ import java.util.List;
 
 
 public class openningHoursScreenController {
-    boolean visible;
+    Message clientMsg = new Message();
+    boolean manager;
     /*
     @FXML
     private MenuItem ChangeAppBtn;
@@ -40,6 +41,9 @@ public class openningHoursScreenController {
     */
     @FXML
     private MenuItem OpenningHoursBtn;
+
+    @FXML
+    private Button submitChangeHoursBtn;
     /*
         @FXML
         private MenuItem contactInfoBtn;
@@ -74,11 +78,32 @@ public class openningHoursScreenController {
 
     @FXML
     void pressChangeHoursBtn(ActionEvent event) {
-        openHourTF.setVisible(true);
-        closeHourTF.setVisible(true);
         ChangeHoursBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent event) {
+                openHourTF.setVisible(true);
+                closeHourTF.setVisible(true);
+            }
+        });
+    }
 
+    @FXML
+    void pressSubmitChangeHoursBtn(ActionEvent event){
+        submitChangeHoursBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent event) {
+                msg.setAction("change hours");
+                try{
+                    if(!openHourTF.getText().equals("")) {
+                        msg.setOpenningHour(openHourTF.getText());
+                    }
+                    if(!closeHourTF.getText().equals("")) {
+                        msg.setClosingHour(closeHourTF.getText());
+                    }
+                    OpenningHourColumn.setText(String.valueOf(msg.getClinic().getOpenningHour()));
+                    ClosingHourColumn.setText(String.valueOf(msg.getClosingHour().getClosingHour()));
+                    SimpleClient.getClient().sendToServer(msg);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -89,40 +114,46 @@ public class openningHoursScreenController {
 
     @FXML
     void initialize() {
-        visible = App.getType().equals("Manager");
-        if(visible){
-            ChangeHoursBtn.setVisible(true);
-        }
+        manager = App.getType().equals("Manager");
     }
     @FXML
     void ShowClinics(MouseEvent event) {
-        // the messege need to stay the same so ill be able to change it with input- meaby
-        Message msg = new Message();
-        msg.setAction("GetAllClinics");
-        try {
-            //not sure if this is right --I want to send the msg to server-yoni
-            SimpleClient.getClient().sendToServer(msg);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        List<Clinic> clinics = Message.getClinicList();
-        for (Clinic clinic : clinics) {
-            ClinicsList.getItems().add(clinic.getName());
-        }
+            ClinicsList.onMouseClickedProperty(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    // the messege need to stay the same so ill be able to change it with input- meaby
+                    msg.setAction("GetAllClinics");
+                    try {
+                        //not sure if this is right --I want to send the msg to server-yoni
+                        SimpleClient.getClient().sendToServer(msg);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    List<Clinic> clinics = Message.getClinicList();
+                    for (Clinic clinic : clinics) {
+                        ClinicsList.getItems().add(clinic.getName());
+                    }
+                    String chosenClinic = ClinicsList.getSelectionModel().getSelectedItem();
+                    if(chosenClinic!=null){
+                        clientMsg.setClinicName(chosenClinic);
+                        clientMsgsg.setAction("GetClinicFromName");
+                        try {
+                            //not sure if this is right --I want to send the msg to server-yoni
+                            SimpleClient.getClient().sendToServer(msg);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        OpenningHourColumn.setText(String.valueOf(msg.getClinic().getOpenningHour()));
+                        ClosingHourColumn.setText(String.valueOf(msg.getClosingHour().getClosingHour()));
+                        if(manager) {
+                            ChangeHoursBtn.setVisible(true);
+                        }
+                        clientMsg.setOpenningHour(null);
+                        clientMsg.setClosingHour(null);
+                    }
+                }
+            });
     }
-    @FXML
-    void chooseFromClinicList(MouseEvent event) {
-        Message msg = new Message();
-        msg.setClinicName(ClinicsList.getValue());
-        msg.setAction("GetClinicFromName");
-        try {
-            //not sure if this is right --I want to send the msg to server-yoni
-            SimpleClient.getClient().sendToServer(msg);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        OpenningHourColumn.setText(String.valueOf(msg.getOpenningHour()));
-        ClosingHourColumn.setText(String.valueOf(msg.getClosingHour()));
-    }
+
 }
 
