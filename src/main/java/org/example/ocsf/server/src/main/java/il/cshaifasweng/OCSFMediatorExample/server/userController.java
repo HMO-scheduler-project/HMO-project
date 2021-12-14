@@ -22,7 +22,7 @@ public class userController {
         List<User> users = getAllUsersFromDB();
         int flag = 0;
         for (User user : users) {
-            if (user.getUsername().equals(msg.getUsername()) && user.checkPassword(msg.getPassword()) && user.isLoggedIn() == false) {
+            if (user.getUsername().equals(msg.getUsername()) && user.checkPassword(msg.getPassword()) && !user.isLoggedIn()) {
                 if (user instanceof Manager) {
                     msg.setUserType("Manager");
                     System.out.println(msg.getUserType());
@@ -36,7 +36,7 @@ public class userController {
                     msg.setUser(user);
                     flag = 1;
                 } else msg.setUserType("null");
-            } else if (user.getUsername().equals(msg.getUsername()) && user.checkPassword(msg.getPassword()) && user.isLoggedIn() == true) {
+            } else if (user.getUsername().equals(msg.getUsername()) && user.checkPassword(msg.getPassword()) && user.isLoggedIn()) {
                 msg.setType("you are already logged in");
                 flag = 1;
             }
@@ -59,7 +59,7 @@ public class userController {
                     user.setLoggedIn(false);
 
                 }
-            } else if (user.getUsername().equals(msg.getUsername()) && user.checkPassword(msg.getPassword()) && user.isLoggedIn() == true) {
+            } else if (user.getUsername().equals(msg.getUsername()) && user.checkPassword(msg.getPassword()) && user.isLoggedIn()) {
                 msg.setUserType("you are already logged out");
             }
 

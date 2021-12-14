@@ -3,12 +3,14 @@ package org.example.ocsf.client.src.main.java.il.cshaifasweng.OCSFMediatorExampl
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
-import org.example.ocsf.client.src.main.java.il.cshaifasweng.OCSFMediatorExample.client.App;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import org.example.Entities.Clinic;
+import org.example.ocsf.entities.src.main.java.il.cshaifasweng.OCSFMediatorExample.entities.Message;
+
+import java.io.IOException;
+import java.sql.Time;
+import java.util.List;
 
 
 public class openningHoursScreenController {
@@ -18,13 +20,17 @@ public class openningHoursScreenController {
     private MenuItem ChangeAppBtn;
 */
     @FXML
+    private TableColumn<Time, Time> OpenningHourColumn;
+    @FXML
+    private TableColumn<Time, Time> ClosingHourColumn;
+    @FXML
     private Button ChangeHoursBtn;
 
     @FXML
     private Menu ClinicsBtn;
 
     @FXML
-    private ChoiceBox<?> ClinicsList;
+    private ChoiceBox<String> ClinicsList;
 
     @FXML
     private TextField closeHourTF;
@@ -46,17 +52,17 @@ public class openningHoursScreenController {
     /* @FXML
         private MenuItem scheduledAppBtn;
      */
-         @FXML
-        void pressChangeAppBtn(ActionEvent event) {}
+    @FXML
+    void pressChangeAppBtn(ActionEvent event) {}
 
-        @FXML
-        void pressContactInfoBtn(ActionEvent event) {}
+    @FXML
+    void pressContactInfoBtn(ActionEvent event) {}
 
-        @FXML
-        void pressMainPageBtn(ActionEvent event) {}
+    @FXML
+    void pressMainPageBtn(ActionEvent event) {}
 
-        @FXML
-        void pressNewAppBtn(ActionEvent event) {}
+    @FXML
+    void pressNewAppBtn(ActionEvent event) {}
     @FXML
     void pressOpenningHoursBtn(ActionEvent event) {
         OpenningHoursBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -77,10 +83,10 @@ public class openningHoursScreenController {
         });
     }
 
- /*   @FXML
-    void pressScheduledAppBtn(ActionEvent event) {
-    }
-*/
+    @FXML
+       void pressScheduledAppBtn(ActionEvent event) {
+       }
+
     @FXML
     void initialize() {
         visible = App.getType().equals("Manager");
@@ -88,6 +94,42 @@ public class openningHoursScreenController {
             ChangeHoursBtn.setVisible(true);
         }
     }
+    @FXML
+    void ShowClinics(MouseEvent event) {
+        // the messege need to stay the same so ill be able to change it with input- meaby
+        Message msg = new Message();
+        msg.setAction("GetAllClinics");
+        try {
+            //not sure if this is right --I want to send the msg to server-yoni
+            SimpleClient.getClient().sendToServer(msg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        List<Clinic> clinics = Message.getClinicList();
+        for (Clinic clinic : clinics) {
+            ClinicsList.getItems().add(clinic.getName());
+        }
+    }
+    @FXML
+    void chooseFromClinicList(MouseEvent event) {
+        Message msg = new Message();
+        msg.setClinicName(ClinicsList.getValue());
+        msg.setAction("GetClinicFromName");
+        try {
+            //not sure if this is right --I want to send the msg to server-yoni
+            SimpleClient.getClient().sendToServer(msg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        OpenningHourColumn.setText(String.valueOf(msg.getOpenningHour()));
+        ClosingHourColumn.setText(String.valueOf(msg.getClosingHour()));
+
+
+
+    }
+
+
+
 
 }
 

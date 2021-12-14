@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane prefHeight="193.0" prefWidth="301.0" stylesheets="@../login_screen.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.ocsf.client.loginController">
+<StackPane prefHeight="193.0" prefWidth="301.0" stylesheets="@../login_screen.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.ocsf.client.src.main.java.il.cshaifasweng.OCSFMediatorExample.client.loginController">
     <children>
         <StackPane>
             <children>

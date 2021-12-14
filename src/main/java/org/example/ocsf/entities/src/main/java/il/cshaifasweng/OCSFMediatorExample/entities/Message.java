@@ -3,6 +3,7 @@ import org.example.Entities.Clinic;
 import org.example.Entities.User;
 import java.io.Serializable;
 import java.sql.Time;
+import java.util.List;
 
 public class Message implements Serializable {
     /* ---------- Message Necessary Info ---------- */
@@ -17,6 +18,8 @@ public class Message implements Serializable {
     private String userType;
     /*----------Handling clinics----*/
     private Clinic clinic;
+    public static List<Clinic> ClinicList;
+    private String clinic_name;
     private Time openning_hour;
     private Time closing_hour;
 
@@ -94,6 +97,22 @@ public class Message implements Serializable {
 
     public void setClinic(Clinic clinic) {
         this.clinic = clinic;
+    }
+
+    public static List<Clinic> getClinicList() {
+        return ClinicList;
+    }
+
+    public static void setClinicList(List<Clinic> clinicList) {
+        ClinicList = clinicList;
+    }
+
+    public String getClinicName(){
+        return clinic_name;
+    }
+
+    public void setClinicName(String name){
+        this.clinic_name = name;
     }
 
     public void setOpenningHour (Time openning_hour){

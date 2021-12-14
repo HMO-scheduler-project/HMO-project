@@ -47,7 +47,7 @@ public class App extends SimpleServer {
             serverMsg = new Message();
             if (currentMsg.getAction().equals("login")) {
                 try {
-                    if (currentMsg.getUsername().equals(null) || ((Message) msg).getPassword().equals(null)) {
+                    if (currentMsg.getUsername().equals("") || ((Message) msg).getPassword().equals("")) {
                     } else {
                         userController.getUser((Message) msg);
                         serverMsg = (Message) msg;
@@ -90,6 +90,27 @@ public class App extends SimpleServer {
                     e.printStackTrace();
                 }
             }
+
+            if (currentMsg.getAction().equals("GetAllClinics")) {
+                try {
+                    serverMsg = currentMsg;
+                    Message.setClinicList(clinicController.getAllClinicsFromDB());
+                    serverMsg.setAction("ShowClinics");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currentMsg.getAction().equals("GetClinicFromName")) {
+                try {
+                    serverMsg = currentMsg;
+                    serverMsg.setClinic(clinicController.getClinicByName(serverMsg.getClinicName()));
+                    serverMsg.setAction("ShowTime");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -110,6 +131,7 @@ public class App extends SimpleServer {
             System.err.println("An error occured, changes have been rolled back.");
             e.printStackTrace();
         } finally {
+            assert session != null;
             session.close();
         }
     }
